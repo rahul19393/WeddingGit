@@ -1,0 +1,184 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/greyLight"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/dp7"
+        android:layout_marginTop="@dimen/dp7"
+        android:layout_marginLeft="@dimen/dp7"
+        android:padding="@dimen/dp7"
+        android:elevation="@dimen/dp2"
+        android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/fnname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp18"
+                android:text="Mehendi"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:textColor="@color/lightPinkColor"/>
+
+        <!--for calender view-->
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_marginTop="@dimen/dp15"
+    >
+   <!-- <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dummyparty"
+        android:layout_marginRight="@dimen/dp7"
+        android:scaleType="fitXY"
+        android:layout_toLeftOf="@+id/calenderview"
+        />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_toLeftOf="@+id/calenderview">
+
+            <TextView
+                android:id="@+id/venue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Raheja Vihar"
+                android:textSize="@dimen/sp13"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lake Homes Residence, Powai, Mumbai,\n Maharashtra, India"
+                android:textSize="@dimen/sp13"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp25"
+                />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/calenderview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:background="#DCD7D7"
+            >
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016"
+                android:textSize="@dimen/sp13"
+                android:layout_marginTop="@dimen/dp5"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jun"
+                android:layout_marginTop="@dimen/dp5"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp13"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16"
+                android:layout_marginTop="@dimen/dp5"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp13"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:00AM"
+                android:textSize="@dimen/sp13"
+                android:layout_marginTop="@dimen/dp5"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Calendar"
+                android:textSize="@dimen/sp13"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp5"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10"
+                android:background="#FF527B"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+
+</RelativeLayout>
+
+        <!--for map-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"
+            android:layout_marginTop="@dimen/dp10"/>
+
+        <LinearLayout
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp10"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp5">
+            <ImageView
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:src="@drawable/mapicon"
+                android:tint="@color/heartcolor"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Map"
+                android:layout_marginLeft="@dimen/dp15"
+                android:textSize="@dimen/sp13"
+                android:textColor="@color/regularTextColor"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"
+            android:layout_marginTop="@dimen/dp15"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp15"
+            android:textColor="@color/regularTextColor"
+            android:textSize="@dimen/sp13"
+            android:layout_marginRight="@dimen/dp15"
+            android:visibility="gone"
+            android:text="We have kept a floar theme for this mehendi ceremony.Be ready to groove on some dhol and punjeb music!"/>
+    </LinearLayout>
+    </LinearLayout>

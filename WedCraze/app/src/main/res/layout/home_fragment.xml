@@ -1,0 +1,145 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/tabsview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/keycontact"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/dp18"
+                    android:layout_height="@dimen/dp18"
+                    android:src="@drawable/keypeople"
+                    android:scaleType="fitXY"
+                    android:tint="@color/lightPinkColor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/key_people"
+                    android:textSize="@dimen/sp13"
+                    android:layout_marginLeft="@dimen/dp5"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="#8A8A8A"/>
+
+            <LinearLayout
+                android:id="@+id/events"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/dp18"
+                    android:layout_height="@dimen/dp18"
+                    android:src="@drawable/events"
+                    android:scaleType="fitXY"
+                    android:tint="@color/lightPinkColor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/events"
+                    android:textSize="@dimen/sp13"
+                    android:textColor="@color/regularTextColor"
+                    android:layout_marginLeft="@dimen/dp5"/>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#8A8A8A"
+                android:layout_marginBottom="@dimen/dp5"
+                android:layout_marginTop="@dimen/dp5"/>
+
+
+            <LinearLayout
+                android:id="@+id/alert"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/dp18"
+                    android:layout_height="@dimen/dp18"
+                    android:src="@drawable/alerts"
+                    android:scaleType="fitXY"
+                    android:tint="@color/lightPinkColor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alerts"
+                    android:textSize="@dimen/sp13"
+                    android:layout_marginLeft="@dimen/dp5"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"/>
+    </LinearLayout>
+
+<android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/tabsview">
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/weddinglist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></android.support.v7.widget.RecyclerView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/createpost"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/weddinglist"
+        android:src="@drawable/cretae"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:layout_anchorGravity="bottom|right|end"
+        android:elevation="@dimen/dp2"
+        android:layout_margin="16dp"/>
+
+</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

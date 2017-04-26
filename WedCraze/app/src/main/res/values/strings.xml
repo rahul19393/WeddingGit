@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Wedding</string>
+    <string name="facebook_app_id">715721545300150</string>
+    <!--
+    <string name="serverclientid">1053946292810-1t1gn2fqoton25khktk4utoqded1d736.apps.googleusercontent.com</string>
+-->
+    <string name="serverclientid">1053946292810-cpfv3tevtq0bvb1b3cpmdmidmo6ii7gg.apps.googleusercontent.com</string>
+
+    <string name="alerts">Alerts</string>
+    <string name="events">Events</string>
+    <string name="key_people">Key People</string>
+    <string name="comment">Comment</string>
+    <string name="gallery">Gallery</string>
+    <string name="story">Story</string>
+    <string name="share">Share</string>
+    <string name="like">Like</string>
+    <string name="home">Home</string>
+    <string name="comments">Comments</string>
+    <string name="announcement">Announcements</string>
+    <string name="eventSchedule">Events Schedule</string>
+    <string name="write_a_comment">Write a comment...</string>
+    <string name="family_friends"><![CDATA[Family & Friends]]></string>
+    <string name="title_activity_alerts">AlertsActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_create_post">CreatePostActivity</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="com_facebook_loginview_log_out_button">Log out</string>
+    <string name="com_facebook_loginview_log_in_button">Log in</string>
+    <string name="com_facebook_loginview_log_in_button_long">Log in with Facebook</string>
+</resources>

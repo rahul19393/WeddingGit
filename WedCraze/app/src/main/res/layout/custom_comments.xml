@@ -1,0 +1,68 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/dp10"
+    android:paddingRight="@dimen/dp10"
+    android:paddingTop="@dimen/dp10"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/commentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/dp45"
+        android:layout_height="@dimen/dp45"
+        android:id="@+id/userimage"
+        app:civ_border_width="@dimen/dp1"
+        android:src="@drawable/male"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp8"
+        android:orientation="vertical">
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/textColorNormal"
+              android:id="@+id/user_name"
+              android:textSize="@dimen/sp13"
+              android:text="Anna Anica"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:textColor="@color/regularTextColor"
+              android:text="1hr ago"
+              android:layout_marginRight="@dimen/dp10"
+              android:textSize="@dimen/sp11"
+              android:id="@+id/day"/>
+      </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/regularTextColor"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fermentum pulvinar sem, sit amet sodales sapien euismod quis."
+            android:id="@+id/cmmnts"
+            android:textSize="@dimen/sp12"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/commentlayout"
+        android:background="@color/dividerColor"
+        android:layout_marginTop="@dimen/dp15"/>
+</RelativeLayout>

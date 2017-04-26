@@ -1,0 +1,26 @@
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <com.app.wedding.Constants.GridViewItem
+        android:id="@+id/collectionpic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/folder"
+        android:padding="@dimen/dp5"
+        android:layout_marginTop="@dimen/dp10"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp5"
+        android:singleLine="true"
+        android:textSize="@dimen/sp13"
+        android:textColor="@color/textColorNormal"
+        android:text="anc"/>
+    
+    </LinearLayout>

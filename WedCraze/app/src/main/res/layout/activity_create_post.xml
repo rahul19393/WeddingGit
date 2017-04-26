@@ -1,0 +1,158 @@
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_border"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp10">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/userimagepost"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="@dimen/dp50"
+                    android:src="@drawable/dummyuser" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/textColorNormal"
+                        android:textSize="@dimen/sp13"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp1"
+                        android:text="Jun 18 at 05:30a.m."
+                        android:textSize="@dimen/sp11"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp150"
+            android:background="@android:color/transparent"
+            android:hint="Share Your Moment..."
+            android:textColorHint="@color/regularTextColor"
+            android:gravity="top"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/textColorNormal"
+            android:layout_marginTop="@dimen/dp10"
+            android:textSize="@dimen/sp13"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Photos"
+            android:layout_marginTop="@dimen/dp10"
+            android:textSize="@dimen/sp15"
+            android:layout_marginLeft="@dimen/dp15"
+            android:textColor="@color/textColorNormal"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/addph"
+                android:layout_width="@dimen/dp85"
+                android:layout_height="@dimen/dp85"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp15"
+                android:background="@drawable/border">
+
+                <ImageView
+                    android:id="@+id/selectedimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/dp5"
+                    android:src="@drawable/cameraicon"
+                    />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5">
+            <LinearLayout
+                android:id="@+id/addphoto"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="@dimen/dp80"
+                android:layout_marginLeft="@dimen/dp10"
+                android:orientation="horizontal"></LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_alignParentBottom="true">
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp45"
+                android:background="@color/colorPrimary"
+                android:text="CANCEL"
+                android:layout_weight="1"
+                android:textSize="@dimen/sp13"
+                android:textColor="@android:color/white"
+                />
+            <View
+                android:layout_width="@dimen/dp1"
+                android:layout_height="match_parent"
+                android:background="@color/greyLight"/>
+            <Button
+                android:id="@+id/post"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp45"
+                android:background="@color/colorPrimary"
+                android:text="Post"
+                android:layout_weight="1"
+                android:textSize="@dimen/sp13"
+                android:textColor="@android:color/white"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+    </ScrollView>

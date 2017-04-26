@@ -1,0 +1,49 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/dp15"
+    android:layout_marginLeft="@dimen/dp15"
+    android:layout_marginRight="@dimen/dp15"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Photo!"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/takephoto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="Take Photo"
+        android:textSize="@dimen/sp13"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/galerry"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="Choose from gallery"
+        android:textSize="@dimen/sp13"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="Cancel"
+        android:textSize="@dimen/sp13"
+        android:textColor="@android:color/black"/>
+
+
+</LinearLayout>

@@ -1,0 +1,57 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/dp5"
+    android:elevation="@dimen/dp2"
+    android:layout_marginRight="@dimen/dp10"
+    android:layout_marginLeft="@dimen/dp10"
+    android:layout_marginTop="@dimen/dp10"
+    android:background="@android:color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/commentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp15"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
+            android:id="@+id/usercommentImg"
+            android:src="@drawable/peopleplaceholder"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp15"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorNormal"
+                    android:id="@+id/user_name"
+                    android:textSize="@dimen/sp13"
+                    android:text="Anna Anica"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/regularTextColor"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                android:id="@+id/relation"
+                android:textSize="@dimen/sp12"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dp12"
+        android:layout_height="@dimen/dp12"
+        android:src="@drawable/nextarrowicon"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

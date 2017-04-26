@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5DB5BA</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="regularTextColor">#8A8A8A</color>
+    <color name="lightPinkColor">#FE8496</color>
+    <color name="greyLight">#F4F4F4</color>
+    <color name="heartcolor">#FE6666</color>
+    <color name="grey_dividr">#E5E4EE</color>
+    <color name="dividerColor">#D6E6e7</color>
+    <color name="textColorNormal">#252D51</color>
+    <color name="yellow">#ffe400</color>
+
+
+
+
+</resources>
