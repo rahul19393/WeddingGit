@@ -62,27 +62,19 @@ public class SharePictureDialog extends Dialog implements View.OnClickListener{
             case R.id.linked_share_click:
                 postToLinkedin(sharedPath);
                 break;
-
         }
+        dismiss();
     }
     private void postToFacebook(String path) {
-
-
-
         Intent fabIntent = new Intent(Intent.ACTION_SEND);
-
         // Set the MIME type
-        fabIntent.setType("image/*");
-
+        fabIntent.setType("text/plain");
         File media = new File(path);
         Uri uri = Uri.fromFile(media);
-
-        fabIntent.putExtra(Intent.EXTRA_STREAM, uri);
-
+        fabIntent.putExtra(Intent.EXTRA_TEXT, path);
         PackageManager packManager = context.getPackageManager();
         List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(
                 fabIntent, PackageManager.MATCH_DEFAULT_ONLY);
-
         boolean resolved = false;
         for (ResolveInfo resolveInfo : resolvedInfoList) {
             if (resolveInfo.activityInfo.packageName
@@ -106,23 +98,19 @@ public class SharePictureDialog extends Dialog implements View.OnClickListener{
             context.startActivity(i);*/
             Toast.makeText(context,"app not installed",Toast.LENGTH_LONG).show();
         }
-
-
-
     }
 
     private void postToTwitter(String path) {
         // TODO Auto-generated method stub
-
         Intent tweetIntent = new Intent(Intent.ACTION_SEND);
         // Set the MIME type
-        tweetIntent.setType("image/*");
-
+        tweetIntent.setType("text/plain");
         // Create the URI from the media
+        //for image
         File media = new File(path);
         Uri uri = Uri.fromFile(media);
 
-        tweetIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        tweetIntent.putExtra(Intent.EXTRA_TEXT, path);
         PackageManager packManager = context.getPackageManager();
         List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(
                 tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -153,13 +141,13 @@ public class SharePictureDialog extends Dialog implements View.OnClickListener{
     private void postToLinkedin(String path){
         Intent tweetIntent = new Intent(Intent.ACTION_SEND);
         // Set the MIME type
-        tweetIntent.setType("image/*");
+        tweetIntent.setType("text/plain");
 
         // Create the URI from the media
         File media = new File(path);
         Uri uri = Uri.fromFile(media);
 
-        tweetIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        tweetIntent.putExtra(Intent.EXTRA_TEXT, path);
         PackageManager packManager = context.getPackageManager();
         List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(
                 tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);

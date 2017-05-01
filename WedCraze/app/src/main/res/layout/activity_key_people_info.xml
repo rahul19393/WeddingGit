@@ -14,7 +14,6 @@ android:background="@color/regularTextColor">
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:layout_below="@+id/header"
-    android:src="@drawable/dummystorypic"
     android:layout_margin="@dimen/dp10"
     android:layout_above="@+id/details"/>
 

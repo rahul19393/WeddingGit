@@ -1,7 +1,6 @@
 package com.app.wedding.Activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,8 +38,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView homeIcon,galerryIcon,storyIcon;
     private android.support.v4.app.FragmentTransaction transaction;
     private final int PERMISSION_REQUEST_CODE = 100;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment);
         transaction.commit();
@@ -143,7 +140,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
     private void setHome(){
         setDefaultView();

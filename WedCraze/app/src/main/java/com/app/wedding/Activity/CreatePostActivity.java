@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -95,7 +96,7 @@ public class CreatePostActivity extends Activity implements Response.ErrorListen
         params.y = 0;
         this.getWindow().setAttributes(params);
         setFinishOnTouchOutside(true);
-        ((TextView)findViewById(R.id.name)).setText(Constants.USERNAME);
+        ((TextView)findViewById(R.id.name)).setText(C.USER_NAME);
         ImageView userImg = (ImageView)findViewById(R.id.userimagepost);
         addPost = (LinearLayout)findViewById(R.id.addphoto);
 
@@ -129,14 +130,12 @@ public class CreatePostActivity extends Activity implements Response.ErrorListen
                 if((TextUtils.isEmpty(imagePath) && TextUtils.isEmpty(comment.getText().toString()))){
                 }else
                 makePostRequest(imagePath);
-
             }
         });
         permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         permissionList.add(Manifest.permission.CAMERA);
         permissionList.add(Manifest.permission.MEDIA_CONTENT_CONTROL);
-
     }
 
     private boolean checkPermission() {
@@ -369,7 +368,6 @@ dthtr
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -378,7 +376,6 @@ dthtr
         }else if(requestCode == SELECT_FILE){
             onSelectFromGalleryResult(data);
         }else if(requestCode == 333){
-
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                        Bitmap thumbnail = MediaStore.Images.Media.getBitmap(
@@ -458,5 +455,8 @@ dthtr
         startActivityForResult(intent, 333);
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }

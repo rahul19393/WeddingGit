@@ -1,30 +1,68 @@
-<LinearLayout android:layout_height="match_parent"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/welcomebg"
-    android:orientation="vertical"
-    android:gravity="center"
+    android:background="@drawable/loginbg"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <com.app.wedding.Activity.TextureVideoView
+        android:id="@+id/videoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+android:visibility="gone"
+        />
 
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/t1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"></RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/t2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"></RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userimg"
         android:layout_width="@dimen/dp200"
         android:layout_height="@dimen/dp200"
         app:civ_border_width="@dimen/dp1"
+        android:layout_centerHorizontal="true"
         app:civ_border_color="@android:color/black"
         />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp15"
-        android:text="title"
+        android:text=""
+        android:gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp20"
+        android:textSize="@dimen/sp55"
         android:textStyle="bold" />
+    </LinearLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>

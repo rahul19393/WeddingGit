@@ -59,10 +59,12 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
-       <!-- <activity
+        <!--
+            <activity
             android:name=".Activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme" />-->
+            android:theme="@style/AppTheme" />
+        -->
         <activity
             android:name=".Activity.ShowLikesActivity"
             android:screenOrientation="portrait" />
@@ -104,13 +106,16 @@
             android:value="@string/google_maps_key" />
         -->
 
-        <activity android:name=".Activity.WelcomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.FbLoginDemo"
-            ></activity>
-        <activity android:name=".Activity.ImageZoomActivity"
+        <activity
+            android:name=".Activity.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" ></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activity.FbLoginDemo" />
+        <activity
+            android:name=".Activity.ImageZoomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" />
+        <activity android:name=".Activity.FBLoginActivity"></activity>
     </application>
 
 </manifest>

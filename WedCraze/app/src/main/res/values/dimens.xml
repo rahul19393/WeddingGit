@@ -36,4 +36,7 @@
     <dimen name="dp80">80dp</dimen>
     <dimen name="dp35">35dp</dimen>
     <dimen name="dp85">85dp</dimen>
+    <dimen name="sp40">40sp</dimen>
+    <dimen name="sp60">60sp</dimen>
+    <dimen name="sp55">55sp</dimen>
 </resources>

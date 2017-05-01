@@ -135,7 +135,7 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
             Items items = source.get(position);
 
             if(!TextUtils.isEmpty(items.userImage))
-            PicassoCache.getPicassoInstance(CommentsActivity.this).load(items.userImage).placeholder(R.drawable.placeholder).into(holder.userImage);
+            PicassoCache.getPicassoInstance(CommentsActivity.this).load(items.userImage).placeholder(R.drawable.userplaceholder).into(holder.userImage);
            else
                holder.userImage.setImageResource(R.drawable.userplaceholder);
             holder.userName.setText(items.userName);

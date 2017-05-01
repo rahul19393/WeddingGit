@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.app.wedding.Constants.C;
 import com.app.wedding.Constants.Constants;
 import com.app.wedding.Dialog.UserDialog;
+import com.app.wedding.Interface.LogoutFacebookListener;
 import com.app.wedding.Model.AppStore;
 import com.app.wedding.Model.Model;
 import com.app.wedding.R;
@@ -34,6 +35,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.LoggingBehavior;
 import com.facebook.LoginStatusCallback;
 import com.facebook.Profile;
@@ -67,12 +69,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private ProgressDialog pd;
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_GET_TOKEN = 9002;
-    private String socialAccessToken="";
     private CallbackManager callbackManager;
-    private String fbToken = "";
     private LoginButton loginButton;
-  //  private Session.StatusCallback mFbCallback = new SessionStatusCallback();
-
     private boolean fbLogin = false;
 
     @Override
@@ -82,17 +80,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().logOut();
         loginButton = (LoginButton)findViewById(R.id.login_button);
-       /* loginButton.setReadPermissions("public_profile");
-        loginButton.setReadPermissions("email");*/
-        loginButton.setReadPermissions(Arrays.asList(
-                "public_profile", "email", "user_birthday", "user_friends"));
+        //for friend list
+      //  loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends"));
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
         findViewById(R.id.google).setOnClickListener(this);
        findViewById(R.id.facebook).setOnClickListener(this);
         initGoogle();
-       // createFacebookSession(savedInstanceState);
         new UserDialog(LoginActivity.this).show();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,11 +117,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             parameters.putString("fields", "id,name,email,gender,birthday");
                             request.setParameters(parameters);
                             request.executeAsync();
-                            Log.e("token",""+loginResult.getAccessToken());
+                            Log.e("token",""+loginResult.getAccessToken().getToken());
                             JSONObject map = new JSONObject();
                             try {
                                 map.put("provider","facebook");
-                                map.put("access_token",loginResult.getAccessToken());
+                                map.put("access_token",loginResult.getAccessToken().getToken());
                                 if(!fbLogin) {
                                     makeLoginRequest(map);
                                 }
@@ -149,97 +143,35 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
-
-      /*  LoginManager.getInstance().retrieveLoginStatus(this, new LoginStatusCallback() {
-            @Override
-            public void onCompleted(AccessToken accessToken) {
-                // User was previously logged in, can log them in directly here.
-                // If this callback is called, a notification is shown that says
-                // "Logged in as <User Name>"
-                GraphRequest.newMeRequest(
-                        accessToken, new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject me, GraphResponse response) {
-                                if (response.getError() != null) {
-                                    // handle error
-                                } else {
-                                    String email = me.optString("email");
-                                    String id = me.optString("id");
-                                    // send email and id to your web server
-                                }
-                            }
-                        }).executeAsync();
-                Log.e("token",""+accessToken.getToken()+accessToken.getUserId());
-                fbToken = accessToken.getToken();
-            }
-            @Override
-            public void onFailure() {
-                // No access token could be retrieved for the user
-                Log.e("token","fail");
-
-            }
-            @Override
-            public void onError(Exception exception) {
-                // An error occurred
-                Log.e("token","excpt");
-            }
-        });*/
-    }
-
-    private void facebookLogin(){
-        loginButton.performClick();
     }
 
     private void checkFacebook(){
-        LoginManager.getInstance().retrieveLoginStatus(this, new LoginStatusCallback() {
+        logoutFromFacebook(new LogoutFacebookListener() {
             @Override
-            public void onCompleted(AccessToken accessToken) {
-                // User was previously logged in, can log them in directly here.
-                // If this callback is called, a notification is shown that says
-                // "Logged in as <User Name>"
-                GraphRequest.newMeRequest(
-                        accessToken, new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject me, GraphResponse response) {
-                                if (response.getError() != null) {
-                                    // handle error
-                                } else {
-                                    String email = me.optString("email");
-                                    String id = me.optString("id");
-                                    // send email and id to your web server
-                                }
-                            }
-                        }).executeAsync();
-                Log.e("token",""+accessToken.getToken()+accessToken.getUserId());
-                fbToken = accessToken.getToken();
-                makeFacebookParamsRequest(accessToken.getToken());
-            }
-            @Override
-            public void onFailure() {
-                // No access token could be retrieved for the user
-                Log.e("token","fail");
+            public void onLoggedOutFromFacebook() {
                 loginButton.performClick();
-            }
-            @Override
-            public void onError(Exception exception) {
-                // An error occurred
-                Log.e("token","excpt");
             }
         });
     }
+    public void logoutFromFacebook(final LogoutFacebookListener listener) {
 
-    private void makeFacebookParamsRequest(String accesstoken){
-        JSONObject map = new JSONObject();
-        try {
-            map.put("provider","facebook");
-            map.put("access_token",accesstoken);
-            if(!fbLogin) {
-                makeLoginRequest(map);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (AccessToken.getCurrentAccessToken() == null) {
+            // already logged out
+            listener.onLoggedOutFromFacebook();
+            return;
         }
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+
+                LoginManager.getInstance().logOut();
+                listener.onLoggedOutFromFacebook();
+            }
+        }).executeAsync();
     }
+
     private void initGoogle(){
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -258,6 +190,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 startActivityForResult(signInIntent, RC_GET_TOKEN);
                 break;
             case R.id.facebook:
+                callbackManager = CallbackManager.Factory.create();
                checkFacebook();
               break;
 
@@ -303,6 +236,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+      //  callbackManager.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_GET_TOKEN) {
             /*for google signup*/
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -317,7 +251,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         }else{
             callbackManager.onActivityResult(requestCode, resultCode, data);
-
         }
     }
     private class RetrieveGoogleTokenTask extends AsyncTask<String, Void, String> {

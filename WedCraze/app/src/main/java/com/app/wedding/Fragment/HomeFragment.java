@@ -69,8 +69,6 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     private LinearLayoutManager mLayoutManager;
     private int page = 0;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +81,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         view.findViewById(R.id.createpost).setOnClickListener(this);
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer.stopNestedScroll();
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -234,6 +233,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
             }
             else
             holder.eventImageLayout.setVisibility(View.GONE);
+            holder.userName.setText(items.userName);
 
 /*for comment section*/
             Model comment = items.commentModel;
@@ -247,7 +247,6 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                     PicassoCache.getPicassoInstance(getActivity()).load(info.getProfileImage()).into(holder.userCommentImage);
                 else
                     holder.userCommentImage.setImageResource(R.drawable.userplaceholder);
-                holder.userName.setText(items.userName);
             }else
                 holder.commentSection.setVisibility(View.GONE);
 
@@ -289,8 +288,8 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                             C.share(getActivity(), items.functionImage);
                        // C.shareContentExp(getActivity(), "demo", items.functionImage);
                     }*/
-                  //  if(!TextUtils.isEmpty(items.functionImage))
-               //         new SharePictureDialog(getActivity(),items.functionImage).show();
+                    if(!TextUtils.isEmpty(items.functionImage))
+                        new SharePictureDialog(getActivity(),items.functionImage).show();
                         //onShareClick(items.functionImage);
                 }
             });
@@ -462,11 +461,11 @@ private void makeGetPostRequest(int pageCount){
                 intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
             }
         }
-
         // convert intentList to array
         LabeledIntent[] extraIntents = intentList.toArray( new LabeledIntent[ intentList.size() ]);
 
         openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
         startActivity(openInChooser);
     }
+
 }

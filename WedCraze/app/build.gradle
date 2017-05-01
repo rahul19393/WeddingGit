@@ -59,6 +59,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:support-v4:25.2.1'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/LeonidsLib.jar')
+
 }

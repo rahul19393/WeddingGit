@@ -116,7 +116,7 @@ public class AlertsActivity extends AppCompatActivity implements View.OnClickLis
           else
               holder.userImage.setImageResource(R.drawable.userplaceholder);
             if(!TextUtils.isEmpty(items.eventImg))
-           PicassoCache.getPicassoInstance(AlertsActivity.this).load(items.eventImg).placeholder(R.drawable.userplaceholder).into(holder.eventImg);
+           PicassoCache.getPicassoInstance(AlertsActivity.this).load(items.eventImg).placeholder(R.drawable.placeholder).into(holder.eventImg);
           else
               holder.eventImg.setImageResource(R.drawable.placeholder);
                // PicassoCache.getPicassoInstance(AlertsActivity.this).load(items.eventImg).placeholder(R.drawable.userplaceholder).into(holder.eventImg);
