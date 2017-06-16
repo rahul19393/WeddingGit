@@ -12,7 +12,24 @@
     <color name="textColorNormal">#252D51</color>
     <color name="yellow">#ffe400</color>
 
+    <color name="default_text">#2c3e50</color>
+    <color name="center_text">#2980b9</color>
 
-
+    <color name="grey_200">#eeeeee</color>
+    <color name="grey_300">#e0e0e0</color>
+    <color name="grey_400">#bdbdbd</color>
+    <color name="grey_500">#9e9e9e</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="teal_900">#004d40</color>
+    <color name="green_900">#0d5302</color>
+    <color name="white">#ffffff</color>
+    <color name="qcMenuBackground">#C0000000</color>
+    <color name="qc_normal">#E02A96BC</color>
+    <color name="qc_selected">#E0FF8800</color>
+    <color name="qc_sub">#F01A5B73</color>
+    <color name="qc_tab_nr">#F033B5E5</color>
+    <color name="black">#000000</color>
 
 </resources>

@@ -1,0 +1,16 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.app.wedding.Constants.SimpleTextCursorWheelLayout
+        android:id="@+id/test_circle_menu_left"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:wheelItemRotateMode="outward"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        app:wheelSelectedAngle="0"/>
+
+    </RelativeLayout>

@@ -25,6 +25,7 @@ import com.app.wedding.Model.Model;
 import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,6 +95,8 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
             volleyError = error;
         }
+        Toast.makeText(CommentsActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
+
         Log.e("error",volleyError.toString());
     }
 

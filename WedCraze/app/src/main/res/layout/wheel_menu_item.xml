@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center"
+            >
+<!--
+    <TextView
+        android:id="@+id/wheel_menu_item_tv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:textColor="#000"
+        android:padding="16dip"
+        android:textSize="14.0dip"
+        tools:text="Test"
+        android:background="#ffff00"
+        tools:visibility="visible"/>-->
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/wheelmenu"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:id="@+id/wheel_menu_item_tv"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
+            android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        />
+
+    <ImageView
+        android:id="@+id/wheel_menu_item_tv1"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        />
+</RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/centerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="30dp"
+                >
+
+                <ImageView
+                    android:id="@+id/wheel_menu_item_tv3"
+                    android:layout_width="50dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/wheel_menu_item_tv4"
+                    android:layout_width="50dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/wheel_menu_item_tv2"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/centerview"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_centerHorizontal="true"
+                />
+
+            <ImageView
+                android:id="@+id/ev"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/centerview"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+
+
+</LinearLayout>
+</FrameLayout>

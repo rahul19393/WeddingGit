@@ -1,14 +1,27 @@
 package com.app.wedding.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.wedding.Constants.RadialItems;
 import com.app.wedding.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -27,91 +40,33 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class FbLoginDemo extends AppCompatActivity {
 
-    private CallbackManager callbackManager;
-    private LoginButton loginButton;
-    Button fb;
+    private boolean mIsAdapterDirty = true;
+    private List<RadialItems> itemsRadial = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fb_login_demo);
-        callbackManager = CallbackManager.Factory.create();
 
-        fb = (Button) findViewById(R.id.fb);
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-
-        List< String > permissionNeeds = Arrays.asList("user_photos", "email",
-                "user_birthday", "public_profile", "AccessToken");
-        loginButton.registerCallback(callbackManager,
-                new FacebookCallback < LoginResult > () {@Override
-                public void onSuccess(LoginResult loginResult) {
-
-                    System.out.println("onSuccess");
-
-                    String accessToken = loginResult.getAccessToken()
-                            .getToken();
-                    Log.i("accessToken", accessToken);
-
-                    GraphRequest request = GraphRequest.newMeRequest(
-                            loginResult.getAccessToken(),
-                            new GraphRequest.GraphJSONObjectCallback() {@Override
-                            public void onCompleted(JSONObject object,
-                                                    GraphResponse response) {
-
-                                Log.i("LoginActivity",
-                                        response.toString());
-                                try {
-                                   String id = object.getString("id");
-                                    try {
-                                        URL profile_pic = new URL(
-                                                "http://graph.facebook.com/" + id + "/picture?type=large");
-                                        Log.i("profile_pic",
-                                                profile_pic + "");
-
-                                    } catch (MalformedURLException e) {
-                                        e.printStackTrace();
-                                    }
-                                   Log.e("name",object.getString("name"));
-                                   Log.e("email",object.getString("email"));
-                                   Log.e("gender",object.getString("gender"));
-                                   Log.e("birthday",object.getString("birthday"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            });
-                    Bundle parameters = new Bundle();
-                    parameters.putString("fields",
-                            "id,name,email,gender, birthday");
-                    request.setParameters(parameters);
-                    request.executeAsync();
-                }
-
-                    @Override
-                    public void onCancel() {
-                        System.out.println("onCancel");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        System.out.println("onError");
-                        Log.v("LoginActivity", exception.getCause().toString());
-                    }
-                });
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int responseCode,
-                                    Intent data) {
-        super.onActivityResult(requestCode, responseCode, data);
-        callbackManager.onActivityResult(requestCode, responseCode, data);
-    }
-    public void onClick(View v) {
-        if (v == fb) {
-            loginButton.performClick();
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        for (int i = 0; i < 10; i++) {
+            listAdapter.add(String.format("Item %02d", i));
         }
+        itemsRadial.add(new RadialItems(R.drawable.events,""));
+        itemsRadial.add(new RadialItems(R.drawable.events,""));
+        itemsRadial.add(new RadialItems(R.drawable.events,""));
+        itemsRadial.add(new RadialItems(R.drawable.events,""));
+        itemsRadial.add(new RadialItems(R.drawable.events,""));
+
+        Display display = getWindowManager().getDefaultDisplay();
+
     }
+
 }

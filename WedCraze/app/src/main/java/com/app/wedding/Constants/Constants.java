@@ -5,7 +5,7 @@ package com.app.wedding.Constants;
  */
 
 public class Constants {
-    public static String APP_ID = "";
+    public static String APP_ID = "58f860d180281fa36c911eb8";
    // public static String APP_ID = "58f6011e6cf99b725ccddfed";
     public static  String WELCOME_KEY = "";
     public static String STORY_KEY = "";

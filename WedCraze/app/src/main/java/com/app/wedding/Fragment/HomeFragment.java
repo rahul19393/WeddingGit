@@ -2,13 +2,21 @@ package com.app.wedding.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,45 +25,65 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.app.wedding.Activity.AlertsActivity;
 import com.app.wedding.Activity.CommentsActivity;
 import com.app.wedding.Activity.CreatePostActivity;
-import com.app.wedding.Activity.EventScheduleActivity;
-import com.app.wedding.Activity.HomeActivity;
-import com.app.wedding.Activity.KeyContactsActivity;
+import com.app.wedding.Activity.PlayVideoActivity;
+import com.app.wedding.Activity.ShagunActivity;
 import com.app.wedding.Activity.ShowLikesActivity;
+import com.app.wedding.Constants.BuilderManager;
 import com.app.wedding.Constants.C;
 import com.app.wedding.Constants.Constants;
+import com.app.wedding.Constants.CursorWheelLayout;
+import com.app.wedding.Constants.MenuItemData;
+import com.app.wedding.Constants.RadialItems;
+import com.app.wedding.Constants.SimpleTextAdapter;
+import com.app.wedding.Constants.SimpleTextCursorWheelLayout;
+import com.app.wedding.Dialog.MenuDialog;
 import com.app.wedding.Dialog.SharePictureDialog;
 import com.app.wedding.Dialog.ShowZoomImageDialog;
+import com.app.wedding.Interface.CallBackDialog;
+import com.app.wedding.Interface.OpenFragment;
+import com.app.wedding.Interface.StartFragmentListner;
 import com.app.wedding.Model.Model;
 import com.app.wedding.Model.NamePair;
 import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
-
+import com.app.wedding.network.VolleyErrors;
+import com.nightonke.boommenu.Animation.BoomEnum;
+import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.ButtonEnum;
+import com.nightonke.boommenu.Piece.PiecePlaceEnum;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LENOVO on 4/12/2017.
  */
 
-public class HomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener,Response.ErrorListener,Response.Listener<JSONArray>{
+public class HomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener,Response.ErrorListener,Response.Listener<JSONArray>,OpenFragment{
 
     private RecyclerView weddingList;
     private ArrayList<Items> lists = new ArrayList<>();
@@ -68,17 +96,60 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     private boolean isReferesh,isPagination;
     private LinearLayoutManager mLayoutManager;
     private int page = 0;
+    private boolean mIsAdapterDirty = true;
+    private List<RadialItems> itemsRadial = new ArrayList<>();
+    private BoomMenuButton bmb,boommenu;
+    private ArrayList<Pair> piecesAndButtons = new ArrayList<>();
+    private SimpleTextCursorWheelLayout mTestCircleMenuLeft;
+    private CallBackDialog backtodialog;
+
+    public HomeFragment(CallBackDialog backtodialog) {
+        this.backtodialog = backtodialog;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.from(getActivity()).inflate(R.layout.home_fragment,container,false);
         weddingList = (RecyclerView)view.findViewById(R.id.weddinglist);
+        bmb = (BoomMenuButton) view.findViewById(R.id.bmb);
+        boommenu = (BoomMenuButton) view.findViewById(R.id.boommnus);
+        assert bmb != null;
+        bmb.setButtonEnum(ButtonEnum.Ham);
+        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_1 );
+        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_1 );
+        bmb.addBuilder(BuilderManager.getHamButtonBuilder());
+        mTestCircleMenuLeft = (SimpleTextCursorWheelLayout)view.findViewById(R.id.test_circle_menu_left);
+        //showing in grid
+        assert boommenu != null;
+        boommenu.setButtonEnum(ButtonEnum.SimpleCircle);
+        boommenu.setPiecePlaceEnum(PiecePlaceEnum.DOT_9_1);
+        boommenu.setButtonPlaceEnum(ButtonPlaceEnum.SC_9_1);
+        for (int i = 0; i < boommenu.getPiecePlaceEnum().pieceNumber(); i++)
+            boommenu.addBuilder(BuilderManager.getSimpleCircleButtonBuilder());
+        boommenu.setBoomEnum(BoomEnum.values()[0]);
+
+       getData();
+        bmb.setPiecePlaceEnum((PiecePlaceEnum) piecesAndButtons.get(12).first);
+        bmb.setButtonPlaceEnum((ButtonPlaceEnum) piecesAndButtons.get(12).second);
+        bmb.clearBuilders();
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
+            bmb.addBuilder(BuilderManager.getHamButtonBuilder());
+
 
         view.findViewById(R.id.events).setOnClickListener(this);
-        view.findViewById(R.id.alert).setOnClickListener(this);
+       // view.findViewById(R.id.alert).setOnClickListener(this);
         view.findViewById(R.id.keycontact).setOnClickListener(this);
         view.findViewById(R.id.createpost).setOnClickListener(this);
+        view.findViewById(R.id.openmenu).setOnClickListener(this);
+        itemsRadial.add(new RadialItems(R.drawable.keypeople,""));
+        itemsRadial.add(new RadialItems(R.drawable.events,""));
+        itemsRadial.add(new RadialItems(R.drawable.alerts,""));
+       // itemsRadial.add(new RadialItems(R.drawable.home,""));
+       // itemsRadial.add(new RadialItems(R.drawable.story,""));
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+       // mCircularListView.setRadius(Math.min(400, display.getWidth() / 3));
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         swipeContainer.stopNestedScroll();
@@ -127,8 +198,43 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                 }
             }
         });
+        initRadialData();
         makeGetPostRequest(0);
         return view;
+    }
+    private List<String> getData() {
+        List<String> data = new ArrayList<>();
+        for (int p = 0; p < PiecePlaceEnum.values().length - 1; p++) {
+            for (int b = 0; b < ButtonPlaceEnum.values().length - 1; b++) {
+                PiecePlaceEnum piecePlaceEnum = PiecePlaceEnum.getEnum(p);
+                ButtonPlaceEnum buttonPlaceEnum = ButtonPlaceEnum.getEnum(b);
+                if (piecePlaceEnum.pieceNumber() == buttonPlaceEnum.buttonNumber()
+                        || buttonPlaceEnum == ButtonPlaceEnum.Horizontal
+                        || buttonPlaceEnum == ButtonPlaceEnum.Vertical) {
+                    piecesAndButtons.add(new Pair<>(piecePlaceEnum, buttonPlaceEnum));
+                    data.add(piecePlaceEnum + " " + buttonPlaceEnum);
+                    if (piecePlaceEnum.getValue() < PiecePlaceEnum.HAM_1.getValue()
+                            || piecePlaceEnum == PiecePlaceEnum.Share
+                            || buttonPlaceEnum.getValue() < ButtonPlaceEnum.HAM_1.getValue()) {
+                        piecesAndButtons.remove(piecesAndButtons.size() - 1);
+                        data.remove(data.size() - 1);
+                    }
+                }
+            }
+        }
+        return data;
+    }
+
+
+
+        private void initRadialData() {
+            String[] res = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "OFF"};
+            List<MenuItemData> menuItemDatas = new ArrayList<MenuItemData>();
+            for (int i = 0; i < 1; i++) {
+                menuItemDatas.add(new MenuItemData(res[i]));
+            }
+            SimpleTextAdapter simpleTextAdapter = new SimpleTextAdapter(getActivity(), menuItemDatas, Gravity.BOTTOM | Gravity.CENTER_VERTICAL,callBackDialog);
+            mTestCircleMenuLeft.setAdapter(simpleTextAdapter);
     }
 
     private void setWeddingAdapter(){
@@ -144,19 +250,25 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     public void onClick(View v) {
         switch (v.getId()){
             case  R.id.events:
-                startActivity(new Intent(getActivity(), EventScheduleActivity.class));
+                startActivity(new Intent(getActivity(), ShagunActivity.class));
                 getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+             /*  startActivity(new Intent(getActivity(), EventScheduleActivity.class));
+                getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);*/
                 break;
-            case  R.id.alert:
+           /* case  R.id.alert:
                 startActivity(new Intent(getActivity(), AlertsActivity.class));
                 getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                break;
+                break;*/
             case  R.id.keycontact:
-                startActivity(new Intent(getActivity(), KeyContactsActivity.class));
+                startActivity(new Intent(getActivity(), PlayVideoActivity.class));
                 getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 break;
             case R.id.createpost:
                 startActivityForResult(new Intent(getActivity(), CreatePostActivity.class),100);
+                break;
+            case R.id.openmenu:
+               new MenuDialog(getActivity(),callBackDialog).show();
+                getActivity().overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 break;
         }
     }
@@ -171,6 +283,8 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
             volleyError = error;
         }
+        Toast.makeText(getActivity(), VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
+
         Log.e("error",volleyError.toString());
     }
 
@@ -204,6 +318,12 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         }
     }
 
+    @Override
+    public void openFragmentAt(Fragment fr) {
+        ((StartFragmentListner)getActivity()).startFragmentAt(fr);
+    }
+
+
     private class WedingAdapter extends RecyclerView.Adapter<MyViewHolder>{
         private List<Items> source;
 
@@ -229,7 +349,38 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
 
             if(!TextUtils.isEmpty(items.functionImage)) {
                 holder.eventImageLayout.setVisibility(View.VISIBLE);
-                PicassoCache.getPicassoInstance(getActivity()).load(items.functionImage).noFade().placeholder(R.drawable.placeholder).into(holder.imageEvent);
+               /* Glide.with(getActivity())
+                        .load(items.functionImage)
+                        //.centerCrop()
+                      //  .placeholder(R.drawable.placeholder)
+                       // .crossFade()
+                       // .override(720,300)
+
+                        .into(holder.imageEvent); */
+               PicassoCache.getPicassoInstance(getActivity()).load(items.functionImage).placeholder(R.drawable.placeholder).into(new Target() {
+                   @Override
+                   public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                      // holder.imageEvent.setwbitmap.getWidth();
+                       holder.imageEvent.getLayoutParams().width = bitmap.getWidth();
+                       holder.imageEvent.getLayoutParams().height = bitmap.getHeight();
+                       Log.e("widthevent",""+bitmap.getWidth());
+                       holder.imageEvent.setImageBitmap(bitmap);
+                   }
+
+                   @Override
+                   public void onBitmapFailed(Drawable errorDrawable) {
+
+                   }
+
+                   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                   @Override
+                   public void onPrepareLoad(Drawable placeHolderDrawable) {
+                       BitmapDrawable bd=(BitmapDrawable) getActivity().getDrawable(R.drawable.placeholder);
+                       holder.imageEvent.getLayoutParams().width = bd.getBitmap().getWidth();
+                       holder.imageEvent.getLayoutParams().height = bd.getBitmap().getHeight();
+                       holder.imageEvent.setImageDrawable(placeHolderDrawable);
+                   }
+               });
             }
             else
             holder.eventImageLayout.setVisibility(View.GONE);
@@ -399,7 +550,8 @@ private void makeGetPostRequest(int pageCount){
         }
     };
 
-    @Override
+
+  @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 200){
@@ -467,5 +619,17 @@ private void makeGetPostRequest(int pageCount){
         openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
         startActivity(openInChooser);
     }
-
+   CallBackDialog callBackDialog = new CallBackDialog() {
+       @Override
+       public void CallBackDialog(String action) {
+           if(action.equals("GALLERY")) {
+               backtodialog.CallBackDialog("GALLERY");
+               ((StartFragmentListner) getActivity()).startFragmentAt(new GalerryFragment(getActivity()));
+           }
+           else if(action.equals("STORY")) {
+               backtodialog.CallBackDialog("STORY");
+               ((StartFragmentListner) getActivity()).startFragmentAt(new StoryFragment(backtodialog));
+           }
+       }
+   };
 }

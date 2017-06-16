@@ -2,6 +2,7 @@ package com.app.wedding.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,23 +17,31 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.wedding.Constants.C;
 import com.app.wedding.Constants.Constants;
+import com.app.wedding.Constants.CursorWheelLayout;
+import com.app.wedding.Constants.MenuItemData;
+import com.app.wedding.Dialog.MenuDialog;
 import com.app.wedding.Fragment.GalerryFragment;
 import com.app.wedding.Fragment.HomeFragment;
 import com.app.wedding.Fragment.StoryFragment;
 import com.app.wedding.Interface.CallBackDialog;
+import com.app.wedding.Interface.StartFragmentListner;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
 
 import org.json.JSONObject;
 
+import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener,StartFragmentListner {
     private DrawerLayout drawer;
     private TextView title,headerText;
     private ImageView homeIcon,galerryIcon,storyIcon;
@@ -60,8 +69,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.viewschedule).setOnClickListener(this);
         findViewById(R.id.viewalerts).setOnClickListener(this);
         findViewById(R.id.signin).setOnClickListener(this);
+        findViewById(R.id.lives).setOnClickListener(this);
+        findViewById(R.id.notification).setOnClickListener(this);
+        findViewById(R.id.radialmenu).setOnClickListener(this);
         title.setText(C.USER_NAME);
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment(callBackDialog));
         headerText.setVisibility(View.GONE);
         if (Build.VERSION.SDK_INT >= 23) {
             if (!checkPermission()) {
@@ -138,6 +150,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.signin:
                 startActivity(new Intent(HomeActivity.this,LoginActivity.class));
                 break;
+            case R.id.notification:
+                startActivity(new Intent(this, AlertsActivity.class));
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                break;
+            case R.id.lives:
+                startActivity(new Intent(this, PlayVideoActivity.class));
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                break;
+            case R.id.radialmenu:
+                new MenuDialog(HomeActivity.this,callBackDialog).show();
+                break;
         }
     }
 
@@ -147,7 +170,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         title.setText(C.USER_NAME);
         headerText.setVisibility(View.GONE);
         title.setVisibility(View.VISIBLE);
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment(callBackDialog));
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 
@@ -172,10 +195,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     CallBackDialog callBackDialog = new CallBackDialog() {
         @Override
         public void CallBackDialog(String action) {
+            if(action.equals("GALLERY"))
+                setGallery();
+            else if(action.equals("STORY"))
+                setStory();
             headerText.setText(action);
         }
     };
-
 
     @Override
     public void onBackPressed() {
@@ -203,4 +229,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      //   Net.makeRequest("http://api.appvapp.com/api/app/58f6011e6cf99b725ccddfed",this,this);
     }
 
+    @Override
+    public void startFragmentAt(Fragment fr) {
+        replaceFragment(fr);
+    }
+
+    @Override
+    public void finishFragment() {
+
+    }
 }

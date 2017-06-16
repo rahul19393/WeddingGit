@@ -1,6 +1,8 @@
 package com.app.wedding.network;
 
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -20,8 +22,6 @@ public class VolleyErrors {
 
     public static String setError(VolleyError error) {
         try {
-
-
          //   Model model = null;
 
             if (error.getMessage() != null) {
@@ -46,7 +46,9 @@ public class VolleyErrors {
                         }
                         break;
                     case 500:
+                        return "ServerError";
                     case 404:
+                        return "Not Fpound";
                     case 400:
                         try {
                             if (error instanceof ServerError)
@@ -66,8 +68,7 @@ public class VolleyErrors {
                 return "time out error.";
 
             }*/ else if (error instanceof NoConnectionError) {
-             //   Log.e("errorMessage",error.toString());
-                return "Please check your internet connection.";
+                return "Something went wrong";
 
             } else if (error instanceof AuthFailureError) {
                 //TODO
@@ -79,7 +80,7 @@ public class VolleyErrors {
 
             } else if (error instanceof NetworkError) {
                 //TODO
-                return "NetworkError";
+                return "Please check your internet connection.";
 
             } else if (error instanceof ParseError) {
                 //TODO

@@ -3,25 +3,13 @@
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
    >
-    <FrameLayout
-        android:id="@+id/FrameLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/fb"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#416BC1"
-            android:onClick="onClick"
-            android:text="FaceBook"
-            android:textColor="#ffffff"
-            android:textStyle="bold" />
-    </FrameLayout>
+    <com.makotokw.android.widget.CircularListView
+        android:layout_width="150dp"
+        android:layout_height="300dp"
+        android:id="@+id/circularListView"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        />
 </RelativeLayout>

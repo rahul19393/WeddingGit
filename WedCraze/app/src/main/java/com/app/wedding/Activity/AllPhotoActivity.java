@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,6 +23,7 @@ import com.app.wedding.Model.Model;
 import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,6 +77,8 @@ public class AllPhotoActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onErrorResponse(VolleyError volleyError) {
         pd.dismiss();
+        Toast.makeText(AllPhotoActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
+
     }
 
     @Override

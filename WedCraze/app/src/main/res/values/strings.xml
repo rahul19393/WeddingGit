@@ -5,7 +5,6 @@
     <string name="serverclientid">1053946292810-1t1gn2fqoton25khktk4utoqded1d736.apps.googleusercontent.com</string>
 -->
     <string name="serverclientid">1053946292810-cpfv3tevtq0bvb1b3cpmdmidmo6ii7gg.apps.googleusercontent.com</string>
-
     <string name="alerts">Alerts</string>
     <string name="events">Events</string>
     <string name="key_people">Key People</string>
@@ -28,4 +27,25 @@
     <string name="com_facebook_loginview_log_out_button">Log out</string>
     <string name="com_facebook_loginview_log_in_button">Log in</string>
     <string name="com_facebook_loginview_log_in_button_long">Log in with Facebook</string>
+
+    <!--
+    <string name="app_name">CircularListViewSample</string>
+-->
+    <string name="menu_circler">Circler</string>
+    <string name="menu_align_left">LeftAlign</string>
+    <string name="menu_align_right">RightAlign</string>
+    <string name="text_inside_circle_button_text_normal">Text Inside Circle Button(Normal)</string>
+    <string name="text_inside_circle_button_text_highlighted">Text Inside Circle Button(Highlighted)</string>
+    <string name="text_inside_circle_button_text_unable">Text Inside Circle Button(Unable)</string>
+
+    <string name="text_outside_circle_button_text_normal">Text Outside Circle Button(Normal)</string>
+    <string name="text_outside_circle_button_text_highlighted">Text Outside Circle Button(Highlighted)</string>
+    <string name="text_outside_circle_button_text_unable">Text Outside Circle Button(Unable)</string>
+
+    <string name="text_ham_button_text_normal">Ham Button Text(Normal)</string>
+    <string name="text_ham_button_text_highlighted">Ham Button Text(Highlighted)</string>
+    <string name="text_ham_button_text_unable">Ham Button Text(Unable)</string>
+    <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
+    <string name="text_ham_button_sub_text_highlighted">Ham Button Sub Text(Highlighted)</string>
+    <string name="text_ham_button_sub_text_unable">Ham Button Sub Text(Unable)</string>
 </resources>

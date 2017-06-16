@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +30,7 @@ import com.app.wedding.Model.AppStore;
 import com.app.wedding.Model.Model;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -81,13 +83,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         loginButton = (LoginButton)findViewById(R.id.login_button);
+
+       /* DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        Log.e("width",""+width);
+        Log.e("height",""+height);*/
         //for friend list
       //  loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends"));
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
         findViewById(R.id.google).setOnClickListener(this);
        findViewById(R.id.facebook).setOnClickListener(this);
         initGoogle();
-        new UserDialog(LoginActivity.this).show();
+        //new UserDialog(LoginActivity.this).show();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +153,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
+        //startActivity(new Intent(LoginActivity.this,PlayVideoActivity.class));
     }
 
     private void checkFacebook(){
@@ -165,7 +176,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             @Override
             public void onCompleted(GraphResponse graphResponse) {
-
                 LoginManager.getInstance().logOut();
                 listener.onLoggedOutFromFacebook();
             }
@@ -175,7 +185,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void initGoogle(){
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.serverclientid))
+               // .requestIdToken("1053946292810-3jcfa71en28c3sfvvmtqldkku9kgb5d3.apps.googleusercontent.com")
+                .requestIdToken("805924011324-b91d4cd9uigs8ede8720vaeqm8j59kf2.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(LoginActivity.this).enableAutoManage(LoginActivity.this,this)
@@ -218,13 +229,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
             volleyError = error;
         }
+        Toast.makeText(LoginActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
         Log.e("error",volleyError.toString());
         fbLogin = false;
     }
 
     @Override
     public void onResponse(JSONObject jsonObject) {
-        pd.dismiss();
+       // pd.dismiss();
         fbLogin = false;
         Log.e("response",jsonObject.toString());
         Model model = new Model(jsonObject.toString());
@@ -294,7 +306,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     /*user info*/
     private void makeAppDataRequest(){
-        pd = C.getProgressDialog(LoginActivity.this);
+      //  pd = C.getProgressDialog(LoginActivity.this);
         HashMap map = new HashMap();
         Net.makeRequest(C.APP_BASE_URL+"api/app/"+Constants.APP_ID,map,response,this);
     }
@@ -318,10 +330,45 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 }else if(i == 4){
                     Constants.GALLERY_KEY = m.getId();
                 }
-                startActivity(new Intent(LoginActivity.this,WelcomeActivity.class));
+               // startActivity(new Intent(LoginActivity.this,WelcomeActivity.class));
+                makeWelcomeRequest();
             }
         }
     };
 
+    private void makeWelcomeRequest(){
+        pd = C.getProgressDialog(this);
+        HashMap map = new HashMap();
+        Net.makeRequest("http://api.appvapp.com/api/pf1/"+Constants.WELCOME_KEY+"/app/"+ Constants.APP_ID,map,res,this);
+    }
 
+
+    Response.Listener<JSONObject> res = new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject jsonObject) {
+          //  pd.dismiss();
+            Model model = new Model(jsonObject.toString());
+            if(!TextUtils.isEmpty(model.getImagePath()))
+                C.WELCOME_IMAGE = model.getImagePath();
+            if(!TextUtils.isEmpty(model.getTitle()))
+                C.WELCOME_TITLE = model.getTitle();
+            makeUserInfoRequest();
+        }
+    };
+
+    private void makeUserInfoRequest(){
+       // pd.show();
+        Net.makeRequest(C.APP_BASE_URL+"api/users/me",new HashMap<String, String>(),responseUser,this);
+    }
+    Response.Listener<JSONObject> responseUser = new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject jsonObject) {
+            pd.dismiss();
+            // video.stop();
+            Model model = new Model(jsonObject.toString());
+            C.USER_IMAGE_URL = model.getProfileImage();
+            C.USER_NAME = model.getName();
+            startActivity(new Intent(LoginActivity.this,HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
+    };
 }

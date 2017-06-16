@@ -11,6 +11,8 @@
         android:layout_marginRight="@dimen/dp10"
         android:horizontalSpacing="@dimen/dp5"
         android:verticalSpacing="@dimen/dp5"
-        android:layout_height="wrap_content"></GridView>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"></GridView>
 
 </RelativeLayout>

@@ -8,10 +8,13 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.android.volley.Response;
@@ -22,6 +25,7 @@ import com.app.wedding.Model.Model;
 import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 import com.plattysoft.leonids.ParticleSystem;
 
 import org.json.JSONObject;
@@ -35,7 +39,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private CircleImageView userImage;
     private ProgressDialog pd;
     private TextView title;
-    private TextureVideoView video;
+   // private TextureVideoView video;
+    private  VideoView video;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +49,37 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_welcome);
         userImage = (CircleImageView)findViewById(R.id.userimg);
         title = (TextView)findViewById(R.id.title);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        Log.e("heightfull",""+height);
+        Log.e("widthfull",""+width);
+
         title.setTypeface(Typeface.createFromAsset(this.getAssets(), "font/Sensations and Qualities.ttf"));
-        video = (TextureVideoView)findViewById(R.id.videoview);
-        String uri = "android.resource://" + getPackageName() + "/" + R.raw.bgvideo;
-        video.setScaleType(TextureVideoView.ScaleType.CENTER_CROP);
-        video.setLooping(true);
-        video.setDataSource(this,Uri.parse(uri));
-       // video.play();
+        //video = (TextureVideoView)findViewById(R.id.videoview);
+        video = (VideoView) findViewById(R.id.surface_view);
+      /*  video.getLayoutParams().height = height;
+        video.getLayoutParams().width = width;
+       // String uri = "android.resource://" + getPackageName() + "/" + R.raw.bubble;
+       // String uri = "android.resource://" + getPackageName() + "/" + R.raw.bubble;
+      //  video.setScaleType(TextureVideoView.ScaleType.CENTER_CROP);
+       // video.setLooping(true);
+       //video.setDataSource(this,Uri.parse(uri));
+      //  video.play();
         userImage.setOnClickListener(this);
-       video.setListener(new TextureVideoView.MediaPlayerListener() {
+        video.setVideoURI(Uri.parse(uri));
+        video.requestFocus();
+        video.start();
+        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                video.start();
+            }
+        });
+
+      /* video.setListener(new TextureVideoView.MediaPlayerListener() {
            @Override
            public void onVideoPrepared() {
                video.play();
@@ -62,10 +89,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
            public void onVideoEnd() {
                video.play();
            }
-       });
+       });*/
 
 
-        new ParticleSystem(this, 80, R.drawable.stripe, 10000)
+      /*  new ParticleSystem(this, 80, R.drawable.stripe, 10000)
                 .setSpeedModuleAndAngleRange(0f, 0.3f, 180, 180)
                 .setRotationSpeed(100)
                 .setAcceleration(0.00005f, 90)
@@ -75,7 +102,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
                 .setRotationSpeed(100)
                 .setAcceleration(0.00005f, 90)
-                .emit(findViewById(R.id.t2), 8);
+                .emit(findViewById(R.id.t2), 8);*/
         makeWelcomeRequest();
     }
     private void makeWelcomeRequest(){
@@ -96,6 +123,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onErrorResponse(VolleyError volleyError) {
         pd.dismiss();
+        Toast.makeText(WelcomeActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -103,6 +132,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         pd.dismiss();
         Model model = new Model(jsonObject.toString());
         if(!TextUtils.isEmpty(model.getImagePath()))
+
+            C.WELCOME_IMAGE = model.getImagePath();
         PicassoCache.getPicassoInstance(WelcomeActivity.this).load(model.getImagePath()).into(userImage);
         if(!TextUtils.isEmpty(model.getTitle()))
             title.setText(model.getTitle());
@@ -116,7 +147,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         public void onResponse(JSONObject jsonObject) {
             pd.dismiss();
-            video.stop();
+           // video.stop();
             Model model = new Model(jsonObject.toString());
             C.USER_IMAGE_URL = model.getProfileImage();
             C.USER_NAME = model.getName();

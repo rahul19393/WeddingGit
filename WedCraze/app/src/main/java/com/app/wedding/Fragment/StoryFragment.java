@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,6 +22,7 @@ import com.app.wedding.Model.Model;
 import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONObject;
 
@@ -64,6 +66,7 @@ public class StoryFragment extends android.support.v4.app.Fragment implements Re
             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
             volleyError = error;
         }
+        Toast.makeText(getActivity(), VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
         Log.e("error",volleyError.toString());
     }
 

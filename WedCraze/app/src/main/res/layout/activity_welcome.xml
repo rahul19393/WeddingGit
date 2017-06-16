@@ -5,18 +5,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <com.app.wedding.Activity.TextureVideoView
+<!--    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >-->
+        <!-- Video player -->
+        <VideoView android:id="@+id/surface_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            >
+        </VideoView>
+<!--
+    </FrameLayout>
+-->
+    <!--  <com.app.wedding.Activity.TextureVideoView
         android:id="@+id/videoview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-android:visibility="gone"
+        android:layout_gravity="center"
+
         />
+-->
 
 
-
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -33,7 +49,7 @@ android:visibility="gone"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"></RelativeLayout>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"

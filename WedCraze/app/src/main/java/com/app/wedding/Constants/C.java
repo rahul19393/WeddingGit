@@ -40,6 +40,8 @@ public class C {
     public static String APP_ID = "";
     public static String USER_IMAGE_URL = "";
     public static String USER_NAME = "";
+    public static String WELCOME_IMAGE = "";
+    public static String WELCOME_TITLE = "";
 
     public static ProgressDialog getProgressDialog(Context mContext) {
         ProgressDialog dialog = new ProgressDialog(mContext);

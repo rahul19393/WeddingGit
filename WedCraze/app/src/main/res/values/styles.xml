@@ -26,4 +26,32 @@
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
     </style>
+
+    <declare-styleable name="CursorWheelLayout">
+        <attr name="wheelSelectedAngle" format="float"></attr>
+        <attr name="wheelPaddingRadio" format="float"></attr>
+        <attr name="wheelCenterRadio" format="float"></attr>
+        <attr name="wheelItemRadio" format="float"></attr>
+        <attr name="wheelFlingValue" format="integer"></attr>
+        <attr name="wheelCursorHeight" format="dimension"></attr>
+        <attr name="wheelCursorColor" format="color"></attr>
+        <attr name="wheelBackgroundColor" format="color"></attr>
+       <!-- <attr name="wheelItemRotateMode" format="enum">
+            <enum name="none" value="0"></enum>
+            <enum name="inward" value="1"></enum>
+            <enum name="outward" value="2"></enum>
+        </attr>-->
+        <attr name="wheelGuideLineWidth" format="dimension"></attr>
+        <attr name="wheelGuideLineColor" format="color"></attr>
+    </declare-styleable>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_dialog</item>
+    </style>
+    <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

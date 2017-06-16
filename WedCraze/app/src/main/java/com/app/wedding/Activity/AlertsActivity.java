@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +26,7 @@ import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.Util.MyApplication;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONArray;
 
@@ -47,7 +49,6 @@ public class AlertsActivity extends AppCompatActivity implements View.OnClickLis
         ((TextView)findViewById(R.id.title)).setText(getResources().getString(R.string.announcement));
        // MyApplication.getInstance().trackScreenView("Overview Fragment");
         makeNotificationRequest();
-
         findViewById(R.id.gotoback).setOnClickListener(this);
     }
 
@@ -83,6 +84,7 @@ public class AlertsActivity extends AppCompatActivity implements View.OnClickLis
             volleyError = error;
         }
         Log.e("error",volleyError.toString());
+        Toast.makeText(AlertsActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
     }
 
     @Override

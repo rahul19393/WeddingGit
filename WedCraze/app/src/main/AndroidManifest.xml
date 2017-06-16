@@ -98,7 +98,9 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBJqz7_K7Gl_1BDr4GqGenF7mhINlR7Esc" />
+            android:value="AIzaSyC4PN217qLWRAfguXwi3oliIsztfTdrcDA" /><!--    <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBJqz7_K7Gl_1BDr4GqGenF7mhINlR7Esc" />-->
 
         <!--
             <meta-data
@@ -115,7 +117,17 @@
             android:name=".Activity.ImageZoomActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" />
-        <activity android:name=".Activity.FBLoginActivity"></activity>
+        <activity android:name=".Activity.FBLoginActivity" />
+        <activity android:name=".Activity.ListMenuActivity" />
+        <activity
+            android:name=".Activity.MenuActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" />
+        <activity android:name=".Activity.PlayVideoActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".Activity.GalleryActivity" />
+        <activity android:name=".Activity.StoryActivity" />
+        <activity android:name=".Activity.WallActivity" />
+        <activity android:name=".Activity.ShagunActivity"></activity>
     </application>
 
 </manifest>

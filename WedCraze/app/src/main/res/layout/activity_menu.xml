@@ -1,0 +1,60 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+       >
+        
+    <com.app.wedding.Constants.SimpleTextCursorWheelLayout
+        android:id="@+id/circlemenu"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:wheelItemRotateMode="outward"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        app:wheelSelectedAngle="0"
+        />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userimg"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="@dimen/dp10"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="285dp"
+        android:layout_height="285dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/outerborder"/>
+
+    <LinearLayout
+        android:id="@+id/view"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp15"
+        android:visibility="gone"
+        android:orientation="horizontal"/>
+
+    <com.app.wedding.Constants.CurvedTextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:text=""
+        android:rotation="-5"
+        android:layout_marginBottom="@dimen/dp15"
+        android:textColor="@android:color/white"/>
+</RelativeLayout>

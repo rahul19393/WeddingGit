@@ -13,7 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
             android:orientation="horizontal"
-            android:weightSum="3"
+            android:weightSum="2"
+            android:visibility="gone"
             android:gravity="center_vertical">
 
             <LinearLayout
@@ -25,16 +26,16 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="@dimen/dp18"
+                    android:layout_width="@dimen/dp25"
                     android:layout_height="@dimen/dp18"
-                    android:src="@drawable/keypeople"
+                    android:src="@drawable/livestreaming"
                     android:scaleType="fitXY"
                     android:tint="@color/lightPinkColor"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/key_people"
+                    android:text="Live Streaming"
                     android:textSize="@dimen/sp13"
                     android:layout_marginLeft="@dimen/dp5"/>
 
@@ -58,14 +59,14 @@
                 <ImageView
                     android:layout_width="@dimen/dp18"
                     android:layout_height="@dimen/dp18"
-                    android:src="@drawable/events"
+                    android:src="@drawable/shagun"
                     android:scaleType="fitXY"
                     android:tint="@color/lightPinkColor"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/events"
+                    android:text="Shagun"
                     android:textSize="@dimen/sp13"
                     android:textColor="@color/regularTextColor"
                     android:layout_marginLeft="@dimen/dp5"/>
@@ -81,7 +82,7 @@
                 android:layout_marginTop="@dimen/dp5"/>
 
 
-            <LinearLayout
+         <!--   <LinearLayout
                 android:id="@+id/alert"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -103,7 +104,7 @@
                     android:textSize="@dimen/sp13"
                     android:layout_marginLeft="@dimen/dp5"/>
 
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
 
         <View
@@ -139,7 +140,50 @@
         android:layout_alignParentRight="true"
         app:layout_anchorGravity="bottom|right|end"
         android:elevation="@dimen/dp2"
+        android:visibility="visible"
         android:layout_margin="16dp"/>
 
+
 </android.support.design.widget.CoordinatorLayout>
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        />
+
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/boommnus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/bmb"
+        />
+
+
+    <com.app.wedding.Constants.SimpleTextCursorWheelLayout
+        android:id="@+id/test_circle_menu_left"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:wheelItemRotateMode="outward"
+        android:layout_marginRight="-150dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        app:wheelSelectedAngle="0"/>
+
+    <ImageView
+        android:id="@+id/openmenu"
+        android:layout_width="@dimen/dp25"
+        android:layout_height="@dimen/dp25"
+        android:src="@drawable/triangleicon"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
 </RelativeLayout>

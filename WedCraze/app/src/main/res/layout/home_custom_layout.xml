@@ -60,23 +60,25 @@
             android:id="@+id/postdescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/sp13"
-            android:textColor="@color/textColorNormal"
+            android:layout_marginLeft="@dimen/dp15"
             android:layout_marginRight="@dimen/dp15"
-            android:layout_marginLeft="@dimen/dp15"/>
+            android:text=""
+            android:textColor="@color/textColorNormal"
+            android:textSize="@dimen/sp13" />
 
         <RelativeLayout
             android:id="@+id/eventimagelayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp200"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10">
 
             <ImageView
                 android:id="@+id/eventimg"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp200"
-                android:src="@drawable/placeholder" />
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -213,93 +215,101 @@
 
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="@dimen/dp10"
             android:layout_marginRight="@dimen/dp10"
             android:background="@color/dividerColor" />
+
         <LinearLayout
             android:id="@+id/commentsection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/vewallcomment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View All Comment"
-                android:textSize="@dimen/sp13"
                 android:layout_marginLeft="@dimen/dp5"
+                android:padding="@dimen/dp10"
+                android:text="View All Comment"
                 android:textColor="@color/textColorNormal"
-                android:padding="@dimen/dp10"/>
+                android:textSize="@dimen/sp13" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingRight="@dimen/dp10"
                 android:background="@android:color/white"
-                >
+                android:paddingLeft="@dimen/dp10"
+                android:paddingRight="@dimen/dp10">
 
                 <LinearLayout
                     android:id="@+id/commentlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="horizontal">
+
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userimagecmnt"
                         android:layout_width="@dimen/dp45"
                         android:layout_height="@dimen/dp45"
-                        android:id="@+id/userimagecmnt"
-                        app:civ_border_width="@dimen/dp1"
-                        android:src="@drawable/male"/>
+                        android:src="@drawable/male"
+                        app:civ_border_width="@dimen/dp1" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp8"
                         android:orientation="vertical">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/user_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="-"
                                 android:textColor="@color/textColorNormal"
-                                android:id="@+id/user_name"
-                                android:textSize="@dimen/sp13"
-                                android:text="-"/>
+                                android:textSize="@dimen/sp13" />
+
                             <TextView
+                                android:id="@+id/comntdate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:textColor="@color/regularTextColor"
-                                android:text="1hr ago"
                                 android:layout_marginRight="@dimen/dp10"
-                                android:textSize="@dimen/sp11"
-                                android:id="@+id/comntdate"/>
+                                android:text="1hr ago"
+                                android:textColor="@color/regularTextColor"
+                                android:textSize="@dimen/sp11" />
                         </RelativeLayout>
+
                         <TextView
+                            android:id="@+id/cmmnts"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/regularTextColor"
                             android:text="-"
-                            android:id="@+id/cmmnts"
-                            android:textSize="@dimen/sp12"/>
+                            android:textColor="@color/regularTextColor"
+                            android:textSize="@dimen/sp12" />
 
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_below="@+id/commentlayout"
-                    android:background="@color/dividerColor"
-                    android:layout_marginTop="@dimen/dp15"/>
+                    android:layout_marginTop="@dimen/dp15"
+                    android:background="@color/dividerColor" />
             </RelativeLayout>
 
         </LinearLayout>

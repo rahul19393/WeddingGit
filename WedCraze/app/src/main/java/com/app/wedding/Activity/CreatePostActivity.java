@@ -53,6 +53,7 @@ import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.MultipartRequest;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -154,7 +155,7 @@ public class CreatePostActivity extends Activity implements Response.ErrorListen
         public void CallBackDialog(String action) {
             if(action.equals("camera")){
                // cameraIntent();
-                cameraPics();
+                cameraIntent();
             }else{
                 galleryIntent();
             }
@@ -441,6 +442,7 @@ dthtr
             VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
             volleyError = error;
         }
+        Toast.makeText(CreatePostActivity.this,""+ VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
         Log.e("error",volleyError.toString());
     }
     private Uri imageUri;

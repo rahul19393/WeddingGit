@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,6 +25,7 @@ import com.app.wedding.Constants.Constants;
 import com.app.wedding.Model.Model;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,6 +79,8 @@ public class EventScheduleActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onErrorResponse(VolleyError volleyError) {
         pd.dismiss();
+        Toast.makeText(EventScheduleActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
+
     }
 
     @Override

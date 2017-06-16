@@ -11,6 +11,7 @@
         android:layout_centerVertical="true"
         android:padding="@dimen/dp5"
         android:src="@drawable/menu"
+        android:visibility="gone"
         android:tint="@android:color/white"
         android:layout_marginLeft="@dimen/dp5"/>
 
@@ -42,5 +43,27 @@
            android:layout_centerInParent="true"
            android:textSize="@dimen/dp15"/>
    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/notification"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:src="@drawable/notification"
+        android:tint="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp5"/>
+
+    <ImageView
+        android:id="@+id/lives"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:src="@drawable/livestreaming"
+        android:tint="@android:color/white"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/notification"
+        android:padding="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp5"/>
 
 </RelativeLayout>

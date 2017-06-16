@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,6 +21,7 @@ import com.app.wedding.Model.Model;
 import com.app.wedding.Model.PicassoCache;
 import com.app.wedding.R;
 import com.app.wedding.network.Net;
+import com.app.wedding.network.VolleyErrors;
 
 import org.json.JSONArray;
 
@@ -67,6 +69,8 @@ public class ShowLikesActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onErrorResponse(VolleyError volleyError) {
         pd.dismiss();
+        Toast.makeText(ShowLikesActivity.this, VolleyErrors.setError(volleyError),Toast.LENGTH_LONG).show();
+
     }
 
     @Override
